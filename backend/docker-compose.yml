@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: backend-backend
+    volumes:
+      - .:/var/www/html  # Monta los archivos del backend en el contenedor
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "pgsql:host=db;dbname=pokemon_db;user=root;password=root"
+
+  db:
+    image: postgres:15
+    container_name: pokemon_db
+    restart: always
+    environment:
+      POSTGRES_DB: pokemon_db
+      POSTGRES_USER: root
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
