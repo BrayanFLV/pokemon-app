@@ -54,7 +54,7 @@ Pokemon-App/
 
 ### **Ejecutar en Local (Windows/Linux)**
 
-#### **1️⃣ Backend**
+#### ** Backend**
 1. Asegúrate de tener PHP 8+ y Composer instalado.
 2. Clona el repositorio:
    ```bash
