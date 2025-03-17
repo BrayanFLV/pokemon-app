@@ -18,4 +18,6 @@ return function (App $app) {
 
     // Buscar Pokémon por nombre
     $app->get('/search', [PokemonController::class, 'searchPokemon']);
+
+    
 };
