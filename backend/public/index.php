@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Slim\Factory\AppFactory;
 use DI\Container;
-use App\Controllers\PokemonController;
+use App\controllers\PokemonController;
 
 // Crear contenedor de dependencias
 $container = new Container();
