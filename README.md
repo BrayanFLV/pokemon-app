@@ -1,70 +1,139 @@
-# Getting Started with Create React App
+ 
+# Pokémon App
+Este proyecto es una aplicación web que permite visualizar información de Pokémon simulando una pokedex consumiendo la API de [PokeAPI](https://pokeapi.co/). La aplicación cuenta con un backend en PHP utilizando Slim Framework y un frontend en React. Además, se ha implementado paginación, búsqueda, almacenamiento en caché y dockerización para facilitar su despliegue.  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tecnologías Utilizadas 
+El proyecto está compuesto por diferentes tecnologías en el backend y el frontend:
 
-## Available Scripts
+### Backend (PHP - Slim Framework)
+- **Slim Framework**: Un microframework ligero para PHP que facilita la creación de API REST.
+- **Guzzle HTTP Client**: Utilizado para realizar peticiones HTTP a la API de Pokémon.
+- **PostgreSQL**: Base de datos utilizada (aunque en esta implementación no se está almacenando información en la BD).
+- **PHP-DI**: Gestión de dependencias en PHP.
+- **Symfony Cache**: Implementado para mejorar el rendimiento almacenando respuestas en caché.
+- **PHPUnit**: Utilizado para realizar pruebas unitarias del backend.
+- **Docker**: Para la contenerización del backend y base de datos.
 
-In the project directory, you can run:
+### Frontend (React)
+- **React**: Librería de JavaScript utilizada para construir la interfaz de usuario.
+- **React Router**: Para gestionar la navegación entre rutas en la aplicación.
+- **Axios**: Librería utilizada para realizar peticiones HTTP al backend.
+- **CSS **: Se han aplicado estilos personalizados sin utilizar frameworks como TailwindCSS o Bootstrap.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Estructura del Proyecto**  
+```
+Pokemon-App/
+│── backend/                # Carpeta del backend
+│   ├── public/             # Carpeta pública para acceder desde el navegador
+│   │   ├── index.php       # Punto de entrada del backend
+│   ├── src/                # Código fuente
+│   │   ├── Controllers/    # Controladores de la API
+│   │   │   ├── PokemonController.php
+│   │   ├── routes.php      # Definición de rutas
+│   ├── tests/              # Pruebas unitarias
+│   ├── Dockerfile          # Configuración de Docker
+│   ├── docker-compose.yml  # Configuración de Docker Compose
+│   ├── composer.json       # Dependencias de PHP
+│── frontend/               # Carpeta del frontend
+│   ├── src/                # Código fuente de React
+│   │   ├── components/     # Componentes reutilizables
+│   │   ├── pages/          # Páginas de la aplicación
+│   │   ├── services/       # Peticiones HTTP con Axios
+│   │   ├── styles/         # Archivos CSS
+│   ├── public/             # Archivos públicos de React
+│   ├── Dockerfile          # Configuración de Docker para el frontend
+│   ├── docker-compose.yml  # Configuración de Docker Compose
+│   ├── package.json        # Dependencias de Node.js
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Instalación y Ejecución del Proyecto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **Ejecutar en Local (Windows/Linux)**
 
-### `npm run build`
+#### **1️⃣ Backend**
+1. Asegúrate de tener PHP 8+ y Composer instalado.
+2. Clona el repositorio:
+   ```bash
+   git clone https://github.com/BrayanFLV/pokemon-app.git
+   cd pokemon-app/backend
+   ```
+3. Instala las dependencias:
+   ```bash
+   composer install
+   ```
+4. Ejecuta el servidor PHP:
+   ```bash
+   php -S localhost:8000 -t public
+   ```
+5. O simplemete descarga los archivos del proyecto.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Frontend
+1. Asegúrate de tener Node.js instalado.
+2. Navega a la carpeta del frontend:
+   ```bash
+   cd ../frontend
+   ```
+3. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+4. Inicia la aplicación:
+   ```bash
+   npm start
+   ```
+5. La aplicación estará disponible en:  
+   http://localhost:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Ejecutar con Docker
+Para ejecutar el backend y el frontend con Docker, sigue estos pasos:
 
-### `npm run eject`
+1. Clona el repositorio y navega a la raíz del proyecto:
+   ```bash
+   git clone https://github.com/BrayanFLV/pokemon-app.git
+   cd pokemon-app
+   ```
+2. Construye y levanta los contenedores:
+   ```bash
+   docker-compose up --build
+   ```
+3. La aplicación estará disponible en:  
+   - Backend: http://localhost:8000  
+   - Frontend: http://localhost:3000
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Para detener los contenedores, usa:
+```bash
+docker-compose down
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Rutas de la API (Backend en Slim PHP)
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/pokemon` | Obtiene la lista de Pokémon (paginado) |
+| GET | `/pokemon/{identifier}` | Obtiene información de un Pokémon por ID o nombre |
+| GET | `/search?name={nombre}` | Busca un Pokémon por nombre |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Pruebas Unitarias
+Las pruebas del backend se encuentran en la carpeta `backend/tests/`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Ejecutar Pruebas en el Backend
+Desde la carpeta del backend:
+```bash
+vendor/bin/phpunit --testdox
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Ejemplo de pruebas implementadas:
+- Test para obtener un Pokémon existente
+- Test para manejar error cuando el Pokémon no existe
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
