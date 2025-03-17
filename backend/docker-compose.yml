@@ -11,16 +11,16 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: "pgsql:host=db;dbname=pokemon_db;user=root;password=root"
+      DATABASE_URL: "pgsql:host=db;dbname=pokemon_db;user=root;password=root" # Conexión a la base de datos
 
   db:
     image: postgres:15
-    container_name: pokemon_db
+    container_name: pokemon_db # Nombre del contenedor
     restart: always
     environment:
-      POSTGRES_DB: pokemon_db
+      POSTGRES_DB: pokemon_db # Nombre de la base de datos
       POSTGRES_USER: root
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_HOST_AUTH_METHOD: trust # trust para dejar de usar contraseñas
     ports:
       - "5432:5432"
     volumes:

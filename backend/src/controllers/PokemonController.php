@@ -10,7 +10,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 class PokemonController {
     
     /**
-     * Obtener la lista de Pokémon desde la API
+     * Obtiene la lista de los pokemon desde la API
      */
     public function getAllPokemons(Request $request, Response $response, array $args)
     {
@@ -21,7 +21,8 @@ class PokemonController {
             $apiResponse = $client->get("https://pokeapi.co/api/v2/pokemon?limit=40");
             $data = json_decode($apiResponse->getBody(), true);
 
-            // Transformar los datos para incluir imágenes
+            // Transformar los datos para incluir imágenes al momento de mostrarlos
+            // Se agrega un id a cada pokemon para poder obtener la imagen desde la API de sprites de Pokémon
             $pokemons = array_map(function ($pokemon, $index) {
                 preg_match('/\/pokemon\/(\d+)\//', $pokemon["url"], $matches);
                 $id = $matches[1] ?? ($index + 1);
@@ -34,7 +35,7 @@ class PokemonController {
                 ];
             }, $data["results"], array_keys($data["results"]));
 
-            // Responder con JSON
+            // aqui se retorna la lista de pokemones
             $response->getBody()->write(json_encode(["pokemons" => $pokemons]));
             return $response->withHeader('Content-Type', 'application/json');
         } catch (\Exception $e) {
@@ -44,7 +45,7 @@ class PokemonController {
     }
 
     /**
-     * Obtener información de un Pokémon por ID o nombre
+     * obtener un pokemon por su id y nombre
      */
     public function getPokemon(Request $request, Response $response, array $args) {
         $cache = new FilesystemAdapter();
@@ -84,7 +85,7 @@ class PokemonController {
     }
 
     /**
-     * Buscar Pokémon por nombre
+     * Buscar Pokémon por nombre y devolver una lista de resultados
      */
     public function searchPokemon(Request $request, Response $response, array $args) {
         $queryParams = $request->getQueryParams();
@@ -103,7 +104,7 @@ class PokemonController {
                 return strpos(strtolower($pokemon['name']), $searchTerm) !== false;
             });
 
-            // ✅ Si no se encontraron resultados, devolver 404
+            // Si no se encontraron resultados, devolver 404
             if (empty($filteredResults)) {
                 return $response->withStatus(404)->withHeader('Content-Type', 'application/json')
                     ->withBody(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(["error" => "No se encontraron Pokémon con ese nombre"])));

@@ -2,7 +2,7 @@
 $host = 'pokemon_db'; // Nombre del servicio en Docker
 $dbname = 'pokemon_db';
 $user = 'root';
-$password = ''; // Vacío porque estamos usando "trust"
+$password = ''; 
 
 try {
     $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);

@@ -5,7 +5,7 @@ use App\Controllers\PokemonController;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use Slim\Psr7\Factory\ResponseFactory;
 
-class PokemonControllerTest extends TestCase
+class PokemonControllerTest extends TestCase  
 {
     private $controller;
 

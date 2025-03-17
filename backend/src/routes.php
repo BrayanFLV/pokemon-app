@@ -1,7 +1,7 @@
 <?php
 
-use Slim\App;
-use App\Controllers\PokemonController;
+use Slim\App; // Importar la clase App de Slim
+use App\Controllers\PokemonController; // Importar el controlador
 
 return function (App $app) {
 

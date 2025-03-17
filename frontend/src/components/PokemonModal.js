@@ -10,9 +10,9 @@ const PokemonModal = ({ isOpen, onClose, pokemon }) => {
         <button className="close-button" onClick={onClose}>✖</button>
         <h2 className="modal-title">{pokemon.name}</h2>
 
-        {/* ✅ Corrección: Verificamos que la imagen exista */}
+        {/*Corrección: Verificamos que la imagen exista */}
         {pokemon.image ? (
-          <img className="modal-image" src={pokemon.image} alt={pokemon.name} />
+          <img className="modal-image" src={pokemon.image} alt={pokemon.name} /> /* traer imagen */
         ) : (
           <p className="no-image">No hay imagen disponible</p>
         )}
